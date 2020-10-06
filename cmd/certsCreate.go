@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/janeczku/go-spinner"
+	"github.com/briandowns/spinner"
 	"github.com/manifoldco/promptui"
 	"github.com/spf13/cobra"
 )
@@ -44,8 +44,10 @@ func createCert() {
 	_, protocolType, err := prompt2.Run()
 
 	// 3. provision
-	s := spinner.StartNew("Provisioning Certificate...")
-	time.Sleep(2 * time.Second) // something more productive here
+	s := spinner.New(spinner.CharSets[9], 100*time.Millisecond)
+	s.Suffix = "Provisioning Certificate..."
+	s.Start()
+	time.Sleep(2 * time.Second)
 	s.Stop()
 
 	fmt.Printf("%s Certificate for `%s` provisioned\n", protocolType, certName)
