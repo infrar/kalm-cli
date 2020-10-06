@@ -1,24 +1,18 @@
-/*
-Copyright © 2020 NAME HERE <EMAIL ADDRESS>
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
 package cmd
 
 import (
 	"fmt"
 
+	"github.com/alexeyco/simpletable"
 	"github.com/spf13/cobra"
+)
+
+var (
+	data = [][]interface{}{
+		{"gke-kapp-live-pool-1-3188", "38.5%", "28d"},
+		{"gke-kapp-live-pool-1-5bfd", "0%", "5m"},
+		{"gke-kapp-live-pool-1-es32", "85.9%", "1d 13h"},
+	}
 )
 
 // nodesCmd represents the nodes command
@@ -26,8 +20,33 @@ var nodesCmd = &cobra.Command{
 	Use:   "nodes",
 	Short: "View cluster node attributes and status",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("nodes called")
+		showNodesTable()
 	},
+}
+
+func showNodesTable() {
+	table := simpletable.New()
+
+	table.Header = &simpletable.Header{
+		Cells: []*simpletable.Cell{
+			{Align: simpletable.AlignCenter, Text: "Name"},
+			{Align: simpletable.AlignCenter, Text: "CPU"},
+			{Align: simpletable.AlignCenter, Text: "Age"},
+		},
+	}
+
+	for _, row := range data {
+		r := []*simpletable.Cell{
+			{Text: row[0].(string)},
+			{Text: row[1].(string)},
+			{Text: row[2].(string)},
+		}
+
+		table.Body.Cells = append(table.Body.Cells, r)
+	}
+
+	table.SetStyle(simpletable.StyleDefault)
+	fmt.Println(table.String())
 }
 
 func init() {
