@@ -16,27 +16,30 @@ limitations under the License.
 package cmd
 
 import (
+	"fmt"
+
 	"github.com/spf13/cobra"
 )
 
-var fakeApps = []string{"hello-kalm", "myblog"}
-
-// appsCmd represents the apps command
-var appsCmd = &cobra.Command{
-	Use:   "apps",
-	Short: "List your apps",
+// nodesCmd represents the nodes command
+var nodesCmd = &cobra.Command{
+	Use:   "nodes",
+	Short: "View cluster node attributes and status",
+	Run: func(cmd *cobra.Command, args []string) {
+		fmt.Println("nodes called")
+	},
 }
 
 func init() {
-	rootCmd.AddCommand(appsCmd)
+	rootCmd.AddCommand(nodesCmd)
 
 	// Here you will define your flags and configuration settings.
 
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
-	// appsCmd.PersistentFlags().String("foo", "", "A help for foo")
+	// nodesCmd.PersistentFlags().String("foo", "", "A help for foo")
 
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
-	// appsCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	// nodesCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }

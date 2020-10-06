@@ -16,27 +16,31 @@ limitations under the License.
 package cmd
 
 import (
+	"fmt"
+
 	"github.com/spf13/cobra"
 )
 
-var fakeApps = []string{"hello-kalm", "myblog"}
+// routesCreateCmd represents the routesCreate command
+var routesCreateCmd = &cobra.Command{
+	Use:   "create",
+	Short: "Create a new certificate via Let's Encrypt",
 
-// appsCmd represents the apps command
-var appsCmd = &cobra.Command{
-	Use:   "apps",
-	Short: "List your apps",
+	Run: func(cmd *cobra.Command, args []string) {
+		fmt.Println("routesCreate called")
+	},
 }
 
 func init() {
-	rootCmd.AddCommand(appsCmd)
+	routesCmd.AddCommand(routesCreateCmd)
 
 	// Here you will define your flags and configuration settings.
 
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
-	// appsCmd.PersistentFlags().String("foo", "", "A help for foo")
+	// routesCreateCmd.PersistentFlags().String("foo", "", "A help for foo")
 
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
-	// appsCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	// routesCreateCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }

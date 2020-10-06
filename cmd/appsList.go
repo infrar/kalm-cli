@@ -16,27 +16,34 @@ limitations under the License.
 package cmd
 
 import (
+	"fmt"
+
 	"github.com/spf13/cobra"
 )
 
-var fakeApps = []string{"hello-kalm", "myblog"}
+// appsListCmd represents the appsList command
+var appsListCmd = &cobra.Command{
+	Use:   "list",
+	Short: "List all Apps",
+	Run: func(cmd *cobra.Command, args []string) {
+		fmt.Printf("Kalm Apps:\n\n")
 
-// appsCmd represents the apps command
-var appsCmd = &cobra.Command{
-	Use:   "apps",
-	Short: "List your apps",
+		for i, app := range fakeApps {
+			fmt.Printf("%d) %s\n", i+1, app)
+		}
+	},
 }
 
 func init() {
-	rootCmd.AddCommand(appsCmd)
+	appsCmd.AddCommand(appsListCmd)
 
 	// Here you will define your flags and configuration settings.
 
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
-	// appsCmd.PersistentFlags().String("foo", "", "A help for foo")
+	// appsListCmd.PersistentFlags().String("foo", "", "A help for foo")
 
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
-	// appsCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	// appsListCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
